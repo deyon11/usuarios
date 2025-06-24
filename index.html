@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuarios - API PHP + MySQL</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      color: #333;
+    }
+    input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 5px 0;
+      border-bottom: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h2>Lista de Usuarios</h2>
+  <ul id="lista"></ul>
+
+  <h3>Agregar usuario</h3>
+  <input type="text" id="nombre" placeholder="Nombre">  
+  <button onclick="crearUsuario()">Guardar</button>   
+
+  <script>
+    function cargarUsuarios() {
+      fetch("usuarios/obtener.php")
+        .then(response => response.json())
+        .then(data => {
+          const lista = document.getElementById("lista");
+          lista.innerHTML = "";
+          data.forEach(usuario => {
+            const li = document.createElement("li");
+            li.textContent = usuario.nombre;
+            lista.appendChild(li);
+          });
+        });
+    }
+
+    function crearUsuario() {
+      const nombre = document.getElementById("nombre").value.trim();
+      if (nombre === "") {
+        alert("Por favor ingresa un nombre.");
+        return;
+      }
+
+      fetch("usuarios/crear.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: nombre })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert(data.mensaje || data.error);
+        document.getElementById("nombre").value = "";
+        cargarUsuarios();
+      });
+    }
+
+    cargarUsuarios();
+  </script>
+
+  <footer>
+    <h1 textcolor="green">Dey</h1>
+  </footer>
+</body>
+</html>

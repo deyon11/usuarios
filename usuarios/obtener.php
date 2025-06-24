@@ -8,15 +8,6 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el json
 
 echo json_encode($usuarios);    //devuelve el json
 echo json_last_error_msg(); //devuelve el error
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XD</title>
-</head>
-<body>
+//echo $pdo->errorInfo(); //devuelve el error
     
-</body>
-</html>
+?>

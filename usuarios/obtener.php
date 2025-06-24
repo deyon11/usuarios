@@ -7,12 +7,4 @@ $stmt = $pdo->query($sql); //ejecuta la consulta
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC); //devuelve el json
 
 echo json_encode($usuarios);    //devuelve el json
-echo json_last_error_msg(); //devuelve el error
-//echo $pdo->errorInfo(); //devuelve el error
-
 ?>
-
-git add <div class="code">
-git commit -m "mensaje"
-git push
-</div>
